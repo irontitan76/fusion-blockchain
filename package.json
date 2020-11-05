@@ -1,0 +1,26 @@
+{
+  "name": "@fusion-io/blockchain",
+  "version": "0.0.1-alpha.1",
+  "description": "",
+  "author": "Ross Sheppard <ross.sheppard@fusion.dev>",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
+  },
+  "dependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "babel-jest": "^26.6.3"
+  },
+  "babel": {
+    "presets": [
+      ["@babel/preset-env", { "targets": { "node": "current" } }]
+    ]
+  }
+}
