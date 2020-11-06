@@ -1,5 +1,5 @@
-import Block from '../Block/Block';
-import { sha256 } from '../helpers/crypto';
+import Block from '../Block/index.js';
+import { sha256 } from '../../util/crypto.js';
 
 export default class Blockchain {
   constructor() {
@@ -7,16 +7,21 @@ export default class Blockchain {
   }
 
   static isValidChain(chain) {
-    if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) return false;
+    if (JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) {
+      return false;
+    }
 
     for (let i = 1; i < chain.length; i++) {
       const block = chain[i];
-      const { data, lastHash, hash, timestamp } = block;
+      const { data, difficulty, hash, lastHash, nonce, timestamp } = block;
+
+      const lastDifficulty = chain[i - 1].difficulty;
+      if (Math.abs(lastDifficulty - difficulty) > 1) return false;
 
       const actualLastHash = chain[i - 1].hash;
       if (lastHash !== actualLastHash) return false;
 
-      const validatedHash = sha256(data, lastHash, timestamp);
+      const validatedHash = sha256(data, difficulty, lastHash, nonce, timestamp);
       if (hash !== validatedHash) return false;
     }
 

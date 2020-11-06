@@ -1,5 +1,6 @@
-import Blockchain from './Blockchain';
-import Block from '../Block/Block';
+import Blockchain from './index.js';
+import Block from '../Block/index.js';
+import { sha256 } from '../../util/crypto.js';
 
 describe('Blockchain', () => {
   let blockchain;
@@ -46,7 +47,6 @@ describe('Blockchain', () => {
 
       describe('and a lastHash reference has changed', () => {
         it('returns false', () => {
-
           blockchain.chain[2].lastHash = 'broken-lastHash';
           expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
         });
@@ -55,6 +55,29 @@ describe('Blockchain', () => {
       describe('and the chain contains a block with an invalid field', () => {
         it('returns false', () => {
           blockchain.chain[2].data = 'some-bad-and-evil-data';
+          expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
+        });
+      });
+
+      describe('and the chain contains a block with jumped difficulty', () => {
+        it('returns false', () => {
+          const lastBlock = blockchain.chain[blockchain.chain.length - 1];
+          const lastHash = lastBlock.hash;
+          const timestamp = Date.now();
+          const nonce = 0;
+          const data = [];
+          const difficulty = lastBlock.difficulty - 3;
+          const hash = sha256(data, difficulty, lastHash, nonce, timestamp);
+          const badBlock = new Block({
+            data,
+            difficulty,
+            hash,
+            lastHash,
+            nonce,
+            timestamp,
+          });
+
+          blockchain.chain.push(badBlock);
           expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
         });
       });
@@ -122,6 +145,8 @@ describe('Blockchain', () => {
         });
 
         it('does replace the chain', () => {
+          console.log(blockchain.chain);
+          console.log(newChain.chain);
           expect(blockchain.chain).toEqual(newChain.chain);
         });
 
