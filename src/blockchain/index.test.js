@@ -1,6 +1,6 @@
 const Blockchain = require('.');
 const Block = require('./Block');
-const { sha256 } = require('../util/crypto.js');
+const { sha256 } = require('../util');
 
 describe('Blockchain', () => {
   let blockchain;
@@ -8,7 +8,7 @@ describe('Blockchain', () => {
   let originalChain;
 
   beforeEach(() => {
-    blockchain = new Blockchain();
+    blockchain = new Blockchain();  
     newChain = new Blockchain();
 
     originalChain = blockchain.chain;

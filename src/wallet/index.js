@@ -1,6 +1,5 @@
 const { STARTING_BALANCE } = require('../config');
-const { ec } = require('../util');
-const { sha256 } = require('../util/crypto');
+const { ec, sha256 } = require('../util');
 
 module.exports = class Wallet {
   constructor() {

@@ -1,6 +1,6 @@
 const hexToBinary = require('hex-to-binary');
 const { GENESIS_DATA, MINE_RATE } = require('../config.js');
-const { sha256 } = require('../util/crypto.js');
+const { sha256 } = require('../util');
 
 module.exports = class Block {
   constructor({ data, difficulty, hash, lastHash, nonce, timestamp }) {
