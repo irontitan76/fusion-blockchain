@@ -1,4 +1,4 @@
-import Blockchain from './blockchain/Blockchain/index.js';
+const Blockchain = require('../blockchain/index.js');
 
 const benchmarkHexHash = () => {
   const blockchain = new Blockchain();

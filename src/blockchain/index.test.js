@@ -1,6 +1,6 @@
-import Blockchain from './index.js';
-import Block from '../Block/index.js';
-import { sha256 } from '../../util/crypto.js';
+const Blockchain = require('.');
+const Block = require('./Block');
+const { sha256 } = require('../util/crypto.js');
 
 describe('Blockchain', () => {
   let blockchain;

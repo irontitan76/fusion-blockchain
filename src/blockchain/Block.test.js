@@ -1,7 +1,7 @@
-import hexToBinary from 'hex-to-binary';
-import Block from '.';
-import { sha256 } from '../../util/crypto';
-import { GENESIS_DATA, MINE_RATE } from '../../config';
+const hexToBinary = require('hex-to-binary');
+const Block = require('./Block.js');
+const { sha256 } = require('../util/crypto.js');
+const { GENESIS_DATA, MINE_RATE } = require('../config.js');
 
 describe('Block', () => {
   const data = ['blockchain', 'data'];

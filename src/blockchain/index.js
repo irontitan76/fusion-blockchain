@@ -1,7 +1,7 @@
-import Block from '../Block/index.js';
-import { sha256 } from '../../util/crypto.js';
+const Block = require('./Block.js');
+const { sha256 } = require('../util/crypto.js');
 
-export default class Blockchain {
+module.exports = class Blockchain {
   constructor() {
     this.chain = [Block.genesis()];
   }
