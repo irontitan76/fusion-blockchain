@@ -21,7 +21,7 @@ describe('TransactionPool', () => {
   describe('clear()', () => {
     it('clears the transactions', () => {
       transactionPool.clear();
-      expect(transactionPool.transactionsMap).toEqual({});
+      expect(transactionPool.transactionMap).toEqual({});
     });
   });
 

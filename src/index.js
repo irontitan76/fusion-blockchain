@@ -61,7 +61,11 @@ app.post('/api/transactions', (req, res) => {
     if (transaction) {
       transaction.update({ amount, recipient, senderWallet: wallet });
     } else {
-      transaction = wallet.createTransaction({ amount, recipient });
+      transaction = wallet.createTransaction({
+        amount,
+        chain: blockchain.chain,
+        recipient,
+      });  
     }
   } catch (error) {
     return res.status(400).json({ message: error.message, type: 'error' });
@@ -76,6 +80,14 @@ app.post('/api/transactions', (req, res) => {
 // TODO: Must have :id
 app.get('/api/transaction-pools/maps', (req, res) => {
   res.json(transactionPool.transactionMap);
+});
+
+app.get('/api/wallet-info', (req, res) => {
+  const address = wallet.publicKey;
+  res.json({
+    address,
+    balance: Wallet.calculateBalance({ address, chain: blockchain.chain }),
+  });
 });
 
 const syncChains = async () => {
