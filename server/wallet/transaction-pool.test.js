@@ -1,5 +1,5 @@
 import Blockchain from '../blockchain';
-import TransactionPool from './transactionPool';
+import TransactionPool from './transaction-pool';
 import Transaction from './transaction';
 import Wallet from '.';
 

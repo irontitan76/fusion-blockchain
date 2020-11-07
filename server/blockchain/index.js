@@ -25,6 +25,7 @@ export default class Blockchain {
       if (lastHash !== actualLastHash) return false;
 
       const validatedHash = sha256(data, difficulty, lastHash, nonce, timestamp);
+      console.log(hash, validatedHash)
       if (hash !== validatedHash) return false;
     }
 
