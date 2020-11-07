@@ -1,0 +1,56 @@
+{
+  "name": "@fusion-io/blockchain-server",
+  "version": "0.0.1-alpha.1",
+  "description": "",
+  "author": "Ross Sheppard <ross.sheppard@fusion.dev>",
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "dev": "yarn redis && yarn dev:server",
+    "dev:peer": "cross-env GENERATE_PEER_PORT='true' nodemon -r esm index.js",
+    "dev:server": "nodemon -r esm index.js",
+    "redis": "redis-server --daemonize yes",
+    "test": "NODE_ENV=test jest --watchAll"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "elliptic": "^6.5.3",
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "hex-to-binary": "^1.0.1",
+    "node-fetch": "^2.6.1",
+    "redis": "^3.0.2",
+    "request": "^2.88.2",
+    "uuid": "^8.3.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-transform-modules-commonjs": "^7.12.1",
+    "concurrently": "^5.3.0",
+    "cross-env": "^7.0.2",
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.6"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/__tests__/**",
+      "*.test.js",
+      "*.spec.js"
+    ]
+  },
+  "babel": {
+    "env": {
+      "test": {
+        "plugins": ["@babel/plugin-transform-modules-commonjs"]
+      }
+    }
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules",
+      "/dist"
+    ]
+  }
+}

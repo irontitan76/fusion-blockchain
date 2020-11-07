@@ -16,11 +16,13 @@ export default class Transaction {
       .reduce((total, outputAmount) => outputAmount + total);
 
     if (amount !== outputTotal) {
+      // eslint-disable-next-line no-console
       console.error(`invalid transaction from ${address}`);
       return false;
     }
 
     if (!verifySignature({ publicKey: address, data: outputMap, signature })) {
+      // eslint-disable-next-line no-console
       console.error(`invalid signature from ${address}`);
       return false;
     }
@@ -35,6 +37,7 @@ export default class Transaction {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   createInput({ outputMap, senderWallet }) {
     return {
       address: senderWallet.publicKey,
@@ -44,6 +47,7 @@ export default class Transaction {
     };
   }
 
+  // eslint-disable-next-line class-methods-use-this
   createOutputMap({ amount, recipient, senderWallet }) {
     return {
       [recipient]: amount,
@@ -59,10 +63,10 @@ export default class Transaction {
     if (!this.outputMap[recipient]) {
       this.outputMap[recipient] = amount;
     } else {
-      this.outputMap[recipient] = this.outputMap[recipient] + amount;
+      this.outputMap[recipient] += amount;
     }
 
-    this.outputMap[senderWallet.publicKey] = this.outputMap[senderWallet.publicKey] - amount;
+    this.outputMap[senderWallet.publicKey] -= amount;
     this.input = this.createInput({ outputMap: this.outputMap, senderWallet });
   }
 }

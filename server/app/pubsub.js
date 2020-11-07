@@ -37,6 +37,7 @@ export default class PubSub {
   }
 
   handleMessage(channel, message) {
+    // eslint-disable-next-line no-console
     console.log(`Message received. Channel: ${channel}. Message: ${message}.`);
 
     const parsedMessage = JSON.parse(message);
@@ -53,7 +54,6 @@ export default class PubSub {
         this.transactionPool.setTransaction(parsedMessage);
         break;
       default:
-        return;
     }
   }
 

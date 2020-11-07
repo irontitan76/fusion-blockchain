@@ -1,5 +1,5 @@
 import Blockchain from '../blockchain';
-import TransactionPool from './transactionPool';
+import TransactionPool from './transaction-pool';
 import Transaction from './transaction';
 import Wallet from '.';
 
@@ -30,18 +30,18 @@ describe('TransactionPool', () => {
       const blockchain = new Blockchain();
       const expectedTransactionMap = {};
 
-      for (let i = 0; i < 6; i++) {
-        const transaction = new Wallet().createTransaction({
+      for (let i = 0; i < 6; i += 1) {
+        const t = new Wallet().createTransaction({
           amount: 20,
           recipient: 'foo',
         });
 
-        transactionPool.setTransaction(transaction);
+        transactionPool.setTransaction(t);
 
         if (i % 2 === 0) {
-          blockchain.addBlock({ data: [transaction] });
+          blockchain.addBlock({ data: [t] });
         } else {
-          expectedTransactionMap[transaction.id] = transaction;
+          expectedTransactionMap[t.id] = t;
         }
       }
 
@@ -77,7 +77,7 @@ describe('TransactionPool', () => {
 
       global.console.error = errorMock;
 
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 10; i += 1) {
         transaction = new Transaction({
           amount: 30,
           recipient: 'any-recipient',

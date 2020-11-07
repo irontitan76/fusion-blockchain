@@ -34,21 +34,21 @@ describe('Block', () => {
   });
 
   describe('mineBlock()', () => {
-    const data = 'mined data';
+    const testData = 'mined data';
     const lastBlock = Block.genesis();
-    const minedBlock = Block.mineBlock({ data, lastBlock });
+    const minedBlock = Block.mineBlock({ data: testData, lastBlock });
 
     it('returns a Block instance', () => {
       expect(minedBlock instanceof Block).toBe(true);
     });
 
     it('sets the data', () => {
-      expect(minedBlock.data).toEqual(data);
+      expect(minedBlock.data).toEqual(testData);
     });
 
     it('sets a SHA-256 hash based on the proper inputs', () => {
       expect(minedBlock.hash).toEqual(sha256(
-        data,
+        testData,
         lastBlock.hash,
         minedBlock.difficulty,
         minedBlock.nonce,
@@ -70,8 +70,8 @@ describe('Block', () => {
     });
   
     it('adjusts the difficulty', () => {
-      const { difficulty } = lastBlock;
-      const possibleResults = [difficulty + 1, difficulty - 1];
+      const { difficulty: diff } = lastBlock;
+      const possibleResults = [diff + 1, diff - 1];
 
       expect(possibleResults.includes(minedBlock.difficulty)).toBe(true);
     });

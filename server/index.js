@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import express from 'express';
 import fetch from 'node-fetch';
 import bodyParser from 'body-parser';
@@ -104,6 +106,8 @@ const syncChains = async () => {
     console.log('replace chain on a sync with', rootChain);
     blockchain.replaceChain(rootChain);
   }
+
+  return null;
 };
 
 const syncPoolMaps = async () => {
@@ -120,6 +124,8 @@ const syncPoolMaps = async () => {
     console.log('replace transaction pool map on a sync with', rootTransactionPoolMap);
     transactionPool.setMap(rootTransactionPoolMap);
   }
+
+  return null;
 };
 
 const syncWithRootState = async () => {

@@ -11,10 +11,11 @@ export default class TransactionPool {
 
   clearBlockchainTransactions({ chain }) {
     // Skip Genesis Block
-    for (let i = 1; i < chain.length; i++) {
+    for (let i = 1; i < chain.length; i += 1) {
       const block = chain[i];
 
-      for (let transaction of block.data) {
+      // eslint-disable-next-line
+      for (const transaction of block.data) {
         if (this.transactionMap[transaction.id]) {
           delete this.transactionMap[transaction.id];
         }

@@ -1,4 +1,4 @@
-import Transaction from './transaction.js';
+import Transaction from './transaction';
 import { STARTING_BALANCE } from '../config';
 import { ec, sha256 } from '../util';
 
@@ -14,10 +14,11 @@ export default class Wallet {
     let outputsTotal = 0;
 
     // Skip Genesis Block
-    for (let i = chain.length - 1; i > 0; i--) {
+    for (let i = chain.length - 1; i > 0; i -= 1) {
       const block = chain[i];
 
-      for (let transaction of block.data) {
+      // eslint-disable-next-line
+      for (const transaction of block.data) {
         if (transaction.input.address === address) {
           hasConductedTransaction = true;
         }
@@ -25,7 +26,7 @@ export default class Wallet {
         const addressOutput = transaction.outputMap[address];
 
         if(addressOutput) {
-          outputsTotal = outputsTotal + addressOutput;
+          outputsTotal += addressOutput;
         }
       }
 

@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import Block from './block';
 import Transaction from '../wallet/transaction';
 import Wallet from '../wallet/index';
@@ -14,7 +16,7 @@ export default class Blockchain {
       return false;
     }
 
-    for (let i = 1; i < chain.length; i++) {
+    for (let i = 1; i < chain.length; i += 1) {
       const block = chain[i];
       const { data, difficulty, hash, lastHash, nonce, timestamp } = block;
 
@@ -42,32 +44,37 @@ export default class Blockchain {
 
   replaceChain(chain, validateTransactions, onSuccess) {
     if (chain.length <= this.chain.length) {
+      // eslint-disable-next-line no-console
       console.error('incoming chain must be longer.');
       return;
     }
 
     if (!Blockchain.isValidChain(chain)) {
+      // eslint-disable-next-line no-console
       console.error('incoming chain is not valid.');
       return;
     }
 
     if (validateTransactions && !this.validTransactionData({ chain })) {
+      // eslint-disable-next-line no-console
       console.error('incoming chain has invalid data');
       return;
     }
     
     if (onSuccess) onSuccess();
+    // eslint-disable-next-line no-console
     console.log('replacing chain with', chain);
     this.chain = chain;
   }
 
   validTransactionData({ chain }) {
     // Skip Genesis Block
-    for(let i = 1; i < chain.length; i++) {
+    for(let i = 1; i < chain.length; i += 1) {
       const block = chain[i];
       const transactionSet = new Set();
       let rewardTransactionsCount = 0;
 
+      // eslint-disable-next-line
       for (let transaction of block.data) {
         if (transaction.input.address === REWARD_INPUT.address) {
           rewardTransactionsCount += 1;
@@ -98,9 +105,9 @@ export default class Blockchain {
           if (transactionSet.has(transaction)) {
             console.error('identical transaction appears multiple times in the block');
             return false;
-          } else {
-            transactionSet.add(transaction);
           }
+
+          transactionSet.add(transaction);
         }
       }
     }

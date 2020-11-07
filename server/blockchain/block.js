@@ -27,12 +27,13 @@ export default class Block {
 
   static mineBlock({ data, lastBlock }) {
     const lastHash = lastBlock.hash;
-    let hash, timestamp;
+    let hash;
+    let timestamp;
     let { difficulty } = lastBlock;
     let nonce = 0;
 
     do {
-      nonce++;
+      nonce += 1;
       difficulty = Block.adjustDifficulty({ originalBlock: lastBlock, timestamp });
       hash = sha256(data, difficulty, lastHash, nonce, timestamp );
       timestamp = Date.now();

@@ -1,46 +1,68 @@
 {
-  "name": "@fusion-io/blockchain",
-  "version": "0.0.1-alpha.1",
-  "description": "",
-  "author": "Ross Sheppard <ross.sheppard@fusion.dev>",
-  "keywords": [],
-  "license": "ISC",
+  "name": "root",
+  "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "dev": "concurrently \"yarn redis\" \"yarn dev:server\" \"yarn dev:peer\"",
-    "dev:peer": "cross-env GENERATE_PEER_PORT='true' nodemon -r esm server/index.js",
-    "dev:server": "nodemon -r esm server/index.js",
-    "redis": "redis-server --daemonize yes",
-    "test": "jest --watchAll"
-  },
-  "dependencies": {
-    "elliptic": "^6.5.3",
-    "esm": "^3.2.25",
-    "express": "^4.17.1",
-    "hex-to-binary": "^1.0.1",
-    "node-fetch": "^2.6.1",
-    "redis": "^3.0.2",
-    "request": "^2.88.2",
-    "uuid": "^8.3.1"
-  },
-  "devDependencies": {
-    "concurrently": "^5.3.0",
-    "cross-env": "^7.0.2",
-    "jest": "^26.6.3",
-    "nodemon": "^2.0.6"
-  },
-  "nodemonConfig": {
-    "ignore": [
-      "**/__tests__/**",
-      "*.test.js",
-      "*.spec.js"
+  "author": "Ross Sheppard",
+  "contributors": [],
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "client/",
+      "server"
     ]
   },
-  "jest": {
-    "testEnvironment": "node",
-    "testPathIgnorePatterns": [
-      "/node_modules",
-      "/dist"
+  "scripts": {
+    "clean": "npm-run-all clean:*",
+    "clean:lint": "eslint '**/*.js'",
+    "clean:prettier": "prettier --write '**/*.{js,ts,css,html}' '!**/dist/**'",
+    "dev": "lerna run dev --parallel --stream",
+    "reset": "yarn reset:modules && yarn reset:yarn",
+    "reset:modules": "find . -name 'node_modules' -type d -prune -print -exec rm -rf '{}' \\;",
+    "reset:yarn": "yarn cache clean && rm -f yarn.lock",
+    "test": "lerna run test --stream",
+    "upgrade": "yarn version:check && yarn version:update",
+    "upgrade:check": "yarn outdated",
+    "upgrade:update": "yarn upgrade-interactive"
+  },
+  "devDependencies": {
+    "depcheck": "^0.9.1",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-jest": "^24.1.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.18.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "husky": "^4.2.1",
+    "lerna": "^3.22.1",
+    "lint-staged": "^10.0.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.19.1"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "bracketSpacing": true,
+    "endOfLine": "auto",
+    "jsxBracketSameLine": false,
+    "jsxSingleQuote": true,
+    "printWidth": 80,
+    "quoteProps": "as-needed",
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    ".{js,css,json,md}": [
+      "yarn clean"
     ]
   }
 }
