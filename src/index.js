@@ -3,6 +3,7 @@ const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
 const Blockchain = require('./blockchain');
 const PubSub = require('./app/PubSub');
+const TransactionMiner = require('./app/TransactionMiner');
 const TransactionPool = require('./wallet/TransactionPool');
 const Wallet = require('./Wallet');
 
@@ -12,6 +13,12 @@ const transactionPool = new TransactionPool();
 const wallet = new Wallet();
 
 const pubsub = new PubSub({ blockchain, transactionPool });
+const transactionMiner = new TransactionMiner({
+  blockchain,
+  pubsub,
+  transactionPool,
+  wallet,
+});
 
 const { GENERATE_PEER_PORT } = process.env;
 const DEFAULT_PORT = 8080;
@@ -36,6 +43,11 @@ app.post('/api/blocks', (req, res) => {
   blockchain.addBlock({ data });
   pubsub.broadcastChain();
   return res.redirect('/api/blocks');
+});
+
+app.get('/api/mine', (req, res) => {
+  transactionMiner.mineTransactions();
+  res.redirect('/api/blocks');
 });
 
 app.post('/api/transactions', (req, res) => {

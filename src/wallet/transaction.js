@@ -1,11 +1,12 @@
 const uuid = require('uuid');
 const { verifySignature } = require('../util');
+const { MINING_REWARD, REWARD_INPUT } = require('../config');
 
 module.exports = class Transaction {
-  constructor({ amount, recipient, senderWallet }) {
+  constructor({ amount, input, outputMap, recipient, senderWallet }) {
     this.id = uuid.v1();
-    this.outputMap = this.createOutputMap({ amount, recipient, senderWallet });
-    this.input = this.createInput({ outputMap: this.outputMap , senderWallet });
+    this.outputMap = outputMap || this.createOutputMap({ amount, recipient, senderWallet });
+    this.input = input || this.createInput({ outputMap: this.outputMap , senderWallet });
   }
 
   static isValid(transaction) {
@@ -25,6 +26,13 @@ module.exports = class Transaction {
     }
 
     return true;
+  }
+
+  static rewardTransaction({ minerWallet }) {
+    return new this({
+      input: REWARD_INPUT,
+      outputMap: { [minerWallet.publicKey]: MINING_REWARD },
+    });
   }
 
   createInput({ outputMap, senderWallet }) {
