@@ -1,8 +1,8 @@
-const Transaction = require('./transaction');
-const { STARTING_BALANCE } = require('../config');
-const { ec, sha256 } = require('../util');
+import Transaction from './transaction.js';
+import { STARTING_BALANCE } from '../config';
+import { ec, sha256 } from '../util';
 
-module.exports = class Wallet {
+export default class Wallet {
   constructor() {
     this.balance = STARTING_BALANCE;
     this.keyPair = ec.genKeyPair();

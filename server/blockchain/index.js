@@ -1,10 +1,10 @@
-const Block = require('./Block.js');
-const Transaction = require('../wallet/transaction');
-const Wallet = require('../wallet');
-const { sha256 } = require('../util');
-const { REWARD_INPUT, MINING_REWARD } = require('../config');
+import Block from './block';
+import Transaction from '../wallet/transaction';
+import Wallet from '../wallet/index';
+import { sha256 } from '../util/index';
+import { REWARD_INPUT, MINING_REWARD } from '../config';
 
-module.exports = class Blockchain {
+export default class Blockchain {
   constructor() {
     this.chain = [Block.genesis()];
   }

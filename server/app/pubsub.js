@@ -1,4 +1,4 @@
-const redis = require('redis');
+import redis from 'redis';
 
 const CHANNELS = {
   BLOCKCHAIN: 'BLOCKCHAIN',
@@ -6,7 +6,7 @@ const CHANNELS = {
   TRANSACTION: 'TRANSACTION',
 };
 
-module.exports = class PubSub {
+export default class PubSub {
   constructor({ blockchain, transactionPool }) {
     this.blockchain = blockchain;
     this.transactionPool = transactionPool;

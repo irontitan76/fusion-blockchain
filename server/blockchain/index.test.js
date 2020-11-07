@@ -1,8 +1,8 @@
-const Blockchain = require('.');
-const Block = require('./Block');
-const Transaction = require('../wallet/transaction');
-const Wallet = require('../wallet');
-const { sha256 } = require('../util');
+import Blockchain from '.';
+import Block from './block';
+import Transaction from '../wallet/transaction';
+import Wallet from '../wallet';
+import { sha256 } from '../util';
 
 describe('Blockchain', () => {
   let blockchain;

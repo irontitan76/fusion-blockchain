@@ -6,16 +6,16 @@
   "keywords": [],
   "license": "ISC",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "dev": "concurrently \"yarn redis\" \"yarn dev:server\" \"yarn dev:peer\"",
-    "dev:peer": "cross-env GENERATE_PEER_PORT='true' nodemon src/index.js",
-    "dev:server": "nodemon src/index.js",
+    "dev:peer": "cross-env GENERATE_PEER_PORT='true' nodemon -r esm server/index.js",
+    "dev:server": "nodemon -r esm server/index.js",
     "redis": "redis-server --daemonize yes",
     "test": "jest --watchAll"
   },
   "dependencies": {
     "elliptic": "^6.5.3",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "hex-to-binary": "^1.0.1",
     "node-fetch": "^2.6.1",

@@ -1,8 +1,8 @@
-const Blockchain = require('../blockchain');
-const Wallet = require('.');
-const Transaction = require('./transaction');
-const { STARTING_BALANCE } = require('../config');
-const { verifySignature } = require('../util');
+import Blockchain from '../blockchain';
+import Wallet from '.';
+import Transaction from './transaction';
+import { STARTING_BALANCE } from '../config';
+import { verifySignature } from '../util';
 
 describe('Wallet', () => {
   let wallet;

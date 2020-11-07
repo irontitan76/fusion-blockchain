@@ -1,5 +1,6 @@
-const Transaction = require('./transaction');
-module.exports = class TransactionPool {
+import Transaction from './transaction';
+
+export default class TransactionPool {
   constructor() {
     this.transactionMap = {};
   }

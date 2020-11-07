@@ -1,11 +1,11 @@
-const express = require('express');
-const fetch = require('node-fetch');
-const bodyParser = require('body-parser');
-const Blockchain = require('./blockchain');
-const PubSub = require('./app/PubSub');
-const TransactionMiner = require('./app/TransactionMiner');
-const TransactionPool = require('./wallet/TransactionPool');
-const Wallet = require('./Wallet');
+import express from 'express';
+import fetch from 'node-fetch';
+import bodyParser from 'body-parser';
+import Blockchain from './blockchain';
+import PubSub from './app/pubsub';
+import TransactionMiner from './app/transaction-miner';
+import TransactionPool from './wallet/transaction-pool';
+import Wallet from './Wallet';
 
 const app = express();
 const blockchain = new Blockchain();

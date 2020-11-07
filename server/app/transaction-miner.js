@@ -1,6 +1,6 @@
-const Transaction = require('../wallet/transaction');
+import Transaction from '../wallet/transaction';
 
-module.exports = class TransactionMiner {
+export default class TransactionMiner {
   constructor({ blockchain, pubsub, transactionPool, wallet }) {
     this.blockchain = blockchain;
     this.pubsub = pubsub;

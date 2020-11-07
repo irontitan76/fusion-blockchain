@@ -1,7 +1,7 @@
-const Blockchain = require('../blockchain');
-const TransactionPool = require('./transactionPool');
-const Transaction = require('./transaction');
-const Wallet = require('.');
+import Blockchain from '../blockchain';
+import TransactionPool from './transactionPool';
+import Transaction from './transaction';
+import Wallet from '.';
 
 describe('TransactionPool', () => {
   let senderWallet;

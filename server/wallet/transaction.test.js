@@ -1,7 +1,7 @@
-const Transaction = require('./Transaction');
-const Wallet = require('.');
-const { verifySignature } = require('../util');
-const { MINING_REWARD, REWARD_INPUT } = require('../config');
+import Transaction from './Transaction';
+import Wallet from '.';
+import { verifySignature } from '../util';
+import { MINING_REWARD, REWARD_INPUT } from '../config';
 
 describe('Transaction', () => {
   let amount;

@@ -1,10 +1,10 @@
-const uuid = require('uuid');
-const { verifySignature } = require('../util');
-const { MINING_REWARD, REWARD_INPUT } = require('../config');
+import { v1 } from 'uuid';
+import { verifySignature } from '../util';
+import { MINING_REWARD, REWARD_INPUT } from '../config';
 
-module.exports = class Transaction {
+export default class Transaction {
   constructor({ amount, input, outputMap, recipient, senderWallet }) {
-    this.id = uuid.v1();
+    this.id = v1();
     this.outputMap = outputMap || this.createOutputMap({ amount, recipient, senderWallet });
     this.input = input || this.createInput({ outputMap: this.outputMap , senderWallet });
   }
