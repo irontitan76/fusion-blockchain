@@ -92,6 +92,52 @@ app.get('/api/wallet-info', (req, res) => {
   });
 });
 
+const walletFoo = new Wallet();
+const walletBar = new Wallet();
+
+const generateWalletTransaction = ({ amount, recipient, wallet }) => {
+  const transaction = wallet.createTransaction({
+    amount,
+    chain: blockchain.chain,
+    recipient,
+  });
+
+  transactionPool.setTransaction(transaction);
+};
+
+const walletAction = () => generateWalletTransaction({
+  amount: 5,
+  recipient: walletFoo.publicKey,
+  wallet,
+});
+
+const walletFooAction = () => generateWalletTransaction({
+  amount: 10,
+  recipient: walletBar.publicKey,
+  wallet: walletFoo,
+});
+
+const walletBarAction = () => generateWalletTransaction({
+  amount: 15,
+  recipient: wallet.publicKey,
+  wallet: walletBar,
+});
+
+for (let i = 0; i < 10; i += 1) {
+  if (i % 3 === 0) {
+    walletAction();
+    walletFooAction();
+  } else if (i % 3 === 1) {
+    walletAction();
+    walletBarAction();
+  } else {
+    walletFooAction();
+    walletBarAction();
+  }
+
+  transactionMiner.mineTransactions();
+}
+
 const syncChains = async () => {
   let res;
 

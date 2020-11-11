@@ -24,7 +24,24 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <title>Fusion CryptoChain</title>
+
+    <style>
+      :root {
+        --flow-space: 1em;
+      }
+
+      main {
+        margin: 0 auto;
+        max-width: 1440px;
+        width: 100%;
+      }
+
+      main > * + * {
+        margin-top: var(--flow-space, 1em);
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
